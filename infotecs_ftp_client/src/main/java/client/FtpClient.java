@@ -17,16 +17,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 import json.JSON;
-//import org.apache.commons.net.PrintCommandListener;
-//import org.apache.commons.net.ftp.FTPClient;
-//import org.apache.commons.net.ftp.FTPFile;
-//import org.apache.commons.net.ftp.FTPReply;
 
 public class FtpClient {
 
     public final static String STUDENT_FILE = "students.json";
     private final String ftpUrl;
-    private final String newFtpUrl;
 
     private Map<Long, String> students;
     private Long maxId;
@@ -34,8 +29,6 @@ public class FtpClient {
     public FtpClient(String user, String password, String server,int port) {
         ftpUrl =
             "ftp://" + user + ":" + password + "@" + server + ":" + port + "/" + STUDENT_FILE;
-        newFtpUrl = "ftp://" + user + ":" + password + "@" + server + ":" + port + "/" + "sstudents.json";
-
     }
 
 

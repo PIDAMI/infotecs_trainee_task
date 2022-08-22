@@ -1,7 +1,6 @@
 package domain;
 
 import json.JSON;
-import json.JSONObject;
 
 public class Student {
     private final Long id;
