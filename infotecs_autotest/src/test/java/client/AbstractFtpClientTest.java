@@ -3,8 +3,10 @@ package client;
 import domain.Student;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -14,20 +16,24 @@ public abstract class AbstractFtpClientTest {
 
     protected AbstractFtpClient ftpClient;
 
-    @DataProvider(name = "dataGetByName")
-    public Object[][] getDataForGetByName() {
+    @DataProvider(name = "dataGetAll")
+    public Object[][] getDataForGetAll() {
         return new Object[][]{
-            {Arrays.asList(new Student(5L, "Astudent"),
+            {Stream.of(new Student(5L, "Astudent"),
                 new Student(1L, "Student1"),
                 new Student(2L, "Student2"),
                 new Student(3L, "Student3"),
-                new Student(4L, "Student3"))
+                new Student(4L, "Student3")
+                   )
+                   .sorted(Comparator.comparing(Student::getName))
+                .collect(Collectors.toList())
             },
         };
     }
 
-    @Test(dataProvider = "dataGetByName")
-    public void checkGetByName(List<Student> expected) throws IOException {
+    // checks that method works as intended and students are sorted by name
+    @Test(dataProvider = "dataGetAll")
+    public void checkGetAll(List<Student> expected) throws IOException {
         List<Student> actual = ftpClient.getAll();
         Assert.assertEquals(actual, expected);
     }
@@ -41,8 +47,9 @@ public abstract class AbstractFtpClientTest {
         };
     }
 
+    // try getting 2 existing students and one non-existing, former must return null
     @Test(dataProvider = "dataGetById")
-    public void checkGetByIdHasMatches(Long id, String expectedName) throws IOException {
+    public void checkGetById(Long id, String expectedName) throws IOException {
         String actualName = ftpClient.getById(id);
         Assert.assertEquals(actualName, expectedName);
     }
@@ -94,6 +101,7 @@ public abstract class AbstractFtpClientTest {
         };
     }
 
+    // check that progress's been saved after exiting current session
     @Test(dataProvider = "dataStateSaved")
     public void checkActualStateSaved(String student) throws IOException, ParseException {
         ftpClient.addStudent(student);
@@ -101,7 +109,7 @@ public abstract class AbstractFtpClientTest {
         List<Student> oldStudents = ftpClient.getAll();
         ftpClient.removeStudentById(oldStudents.get(0).getId());
 
-        // check that progress's been saved after exiting
+
         ftpClient.close();
         ftpClient.open();
         List<Student> matchStudentsAfterSaving = ftpClient.getAll();
