@@ -1,0 +1,12 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name = "actual-ftp-server-mock suite">
+
+  <test name="ftp client test">
+    <classes>
+      <class name="client.FtpClientTest"/>
+    </classes>
+  </test>
+
+</suite>
