@@ -29,7 +29,7 @@
 <!--    </plugins>-->
 <!--  </build>-->
 
-  <profiles>
+<!--  <profiles>-->
 <!--    <profile>-->
 <!--      <id>default</id>-->
 <!--      <activation>-->
@@ -39,16 +39,16 @@
 <!--        <suite.xml.name>simple_mock_ftp_test.xml</suite.xml.name>-->
 <!--      </properties>-->
 <!--    </profile>-->
-    <profile>
-      <id>third_party_mock</id>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-      </activation>
-      <properties>
-        <suite.xml.name>third_party_mock_ftp_test.xml</suite.xml.name>
-      </properties>
-    </profile>
-  </profiles>
+<!--    <profile>-->
+<!--      <id>third_party_mock</id>-->
+<!--      <activation>-->
+<!--        <activeByDefault>false</activeByDefault>-->
+<!--      </activation>-->
+<!--      <properties>-->
+<!--        <suite.xml.name>third_party_mock_ftp_test.xml</suite.xml.name>-->
+<!--      </properties>-->
+<!--    </profile>-->
+<!--  </profiles>-->
 
 
   <dependencies>
